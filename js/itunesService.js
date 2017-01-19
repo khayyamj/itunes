@@ -22,7 +22,7 @@ angular.module('itunes')
             var parsediTunesArr = [];
                 for (var i = 0; i < parsedData.length; i++) {
                     parsediTunesArr.push ( {
-                        AlbumArt: parsedData[i].artistViewUrl,
+                        AlbumArt: parsedData[i].artworkUrl100,
                         Artist: parsedData[i].artistName,
                         Collection: parsedData[i].collectionCensoredName,
                         CollectionPrice: parsedData[i].collectionPrice,
