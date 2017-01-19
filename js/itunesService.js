@@ -9,13 +9,14 @@ angular.module('itunes')
   //You can return the http request or you can make your own promise in order to manipulate the data before you resolve it.
 
     //Code here
-    var BASE_URL = 'https://itunes.apple.com/search?term=';
+    var BASE_URL = 'https://itunes.apple.com/search?';
     this.artist = '';
 
-    this.artistInfo = function(artist) {
+    this.artistInfo = function(newSearchTerm) {
+        console.log(newSearchTerm, "and search string ", BASE_URL + newSearchTerm + '&callback=JSON_CALLBACK')
         return $http({
             method: 'JSONP',
-            url: BASE_URL + artist + '&callback=JSON_CALLBACK'
+            url: BASE_URL + newSearchTerm + '&callback=JSON_CALLBACK'
         })
         .then(function(response){
             var parsedData = response.data.results;
@@ -51,5 +52,16 @@ angular.module('itunes')
   //the iTunes API is going to give you a lot more details than ng-grid wants. Create a new array and then loop through the iTunes data pushing into your new array objects that look like the above data. Make sure your method returns this finalized array of data.
   // When this is complete, head back to your controller.
 
+  this.searchTerms = function(searchTerms) {
+      var searchString = '';
+      for (var terms in searchTerms) {
+          if (searchTerms.hasOwnProperty(terms)) {
+              console.log(terms);
+              searchString += terms + '=' + searchTerms[terms] + '&';
+              console.log (searchString);
+          }
+      }
+      return searchString.substring(0,searchString.length-1);
+  }
 
 });
