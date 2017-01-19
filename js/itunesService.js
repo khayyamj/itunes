@@ -13,7 +13,6 @@ angular.module('itunes')
     this.artist = '';
 
     this.artistInfo = function(newSearchTerm) {
-        console.log(newSearchTerm, "and search string ", BASE_URL + newSearchTerm + '&callback=JSON_CALLBACK')
         return $http({
             method: 'JSONP',
             url: BASE_URL + newSearchTerm + '&callback=JSON_CALLBACK'
@@ -28,7 +27,8 @@ angular.module('itunes')
                         Collection: parsedData[i].collectionCensoredName,
                         CollectionPrice: parsedData[i].collectionPrice,
                         Play: parsedData[i].previewUrl,
-                        Type: parsedData[i].kind
+                        Type: parsedData[i].kind,
+                        Country: parsedData[i].country,
                     })
                 }
             return parsediTunesArr;
@@ -56,12 +56,11 @@ angular.module('itunes')
       var searchString = '';
       for (var terms in searchTerms) {
           if (searchTerms.hasOwnProperty(terms)) {
-              console.log(terms);
-              searchString += terms + '=' + searchTerms[terms] + '&';
-              console.log (searchString);
+              searchString += searchTerms[terms] + '+';
           }
       }
-      return searchString.substring(0,searchString.length-1);
+      var returnString = 'term=' + searchString.substring(0,searchString.length-1)
+      return returnString;
   }
 
 });

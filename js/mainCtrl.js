@@ -12,6 +12,7 @@ angular.module('itunes').controller('mainCtrl', function($scope, itunesService){
         {field: 'AlbumArt', displayName: 'Album Art', width: '110px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><img src="{{row.getProperty(col.field)}}"></div>'},
         {field: 'Type', displayName: 'Type'},
         {field: 'CollectionPrice', displayName: 'Collection Price'},
+        {field: 'Country', displayName: 'Country'},
       ]
   };
 
@@ -23,6 +24,7 @@ angular.module('itunes').controller('mainCtrl', function($scope, itunesService){
   //Now write a function that will call the method on the itunesService that is responsible for getting the data from iTunes, whenever the user clicks the submit button
     $scope.getSongData = function(searchTerms) {
         var newSearchString = itunesService.searchTerms(searchTerms);
+        console.log('getSongData new search string: ',newSearchString)
         itunesService.artistInfo(newSearchString).then(function(response){
             $scope.songData = response;
         });
