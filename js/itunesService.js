@@ -17,6 +17,22 @@ angular.module('itunes')
             method: 'JSONP',
             url: BASE_URL + artist + '&callback=JSON_CALLBACK'
         })
+        .then(function(response){
+            var parsedData = response.data.results;
+            var parsediTunesArr = [];
+                for (var i = 0; i < parsedData.length; i++) {
+                    parsediTunesArr.push ( {
+                        AlbumArt: parsedData[i].artistViewUrl,
+                        Artist: parsedData[i].artistName,
+                        Collection: parsedData[i].collectionCensoredName,
+                        CollectionPrice: parsedData[i].collectionPrice,
+                        Play: parsedData[i].previewUrl,
+                        Type: parsedData[i].kind
+                    })
+                }
+            return parsediTunesArr;
+
+        });
     }
 
 

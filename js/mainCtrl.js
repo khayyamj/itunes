@@ -24,9 +24,10 @@ angular.module('itunes').controller('mainCtrl', function($scope, itunesService){
     $scope.getSongData = function(artist) {
         console.log(artist);
         itunesService.artistInfo(artist).then(function(response){
-            var parsedData = response.data.results;
-            console.log(parsedData);
+            $scope.songData = response;
+            console.log('data in mainCtrl.js is active');
         });
+        return ('success!');
     };
   //*remember, that method should be expecting an artist name. The artist name is coming from the input box on index.html, head over there and check if that input box is tied to any specific model we could use.
   //Also note that that method should be retuning a promise, so you could use .then in this function.
